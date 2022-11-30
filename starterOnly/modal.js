@@ -13,6 +13,8 @@ const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 const formClose = document.querySelector(".close")
 
+
+
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
@@ -23,9 +25,12 @@ function launchModal() {
 //close modal
 formClose.addEventListener("click", closeModal)
 
+
+
 // close modal form
 function closeModal() {
   modalbg.style.display = "none";
+  
 }
 
 
@@ -57,17 +62,20 @@ let birthdateResult = false;
 let locationResult = false;
 let cguResult = false;
 
-nameRegex = /^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ._-\s]{1,50}$/;
+nameRegex = /^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ._-\s]{2,50}$/;
 emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-quantityRegex = /^[0-9]{1,2}$/;
+// quantityRegex = /^[0-9]{1,2}$/;
 birthdateRegex = /^(19|20)\d{2}-\d{2}-\d{2}$/;
+//1900
+
 quantityRegex = /\b([0-9]|[1-9][0-9])\b/
+//0-99
 
 
 let first = document.getElementById('first');
 first.addEventListener('input', (event) => {
-let firstTarget = event.target;
-firstResult = validateElement(nameRegex, firstTarget);
+  let firstTarget = event.target;
+  firstResult = validateElement(nameRegex, firstTarget);
 })
 let last = document.getElementById('last');
 last.addEventListener('input', (event) => {
@@ -93,45 +101,50 @@ birthdate.addEventListener('input', (event) => {
 
 
 function validateRadio() {
-  let RadioChecked = document.querySelector('input[name="location"]:checked')
-
-  if (
-    RadioChecked !== null
-  ) {
-    return true
-
-  } else {
-    return false
-  }
+  return document.querySelector('input[name="location"]:checked') !== null;
 }
 
 function validateCgu() {
-  let cguChecked = document.querySelector('input[id="checkbox1"]:checked')
-  if (cguChecked !== null) {
-    return true
-
-  } else {
-    return false
-  }
+  return document.querySelector('input[id="checkbox1"]:checked') !== null;
 }
 
 
 function validateForm() {
-  locationResult = validateRadio()
-  cguResult = validateCgu()
-  console.log(firstResult, lastResult, emailResult, birthdateResult, quantityResult, "radio", locationResult, 'cgu', cguResult)
-  checkBeforeSending = firstResult && lastResult && emailResult && birthdateResult && quantityResult && locationResult && cguResult
-  return checkBeforeSending;
+  locationResult = validateRadio();
+  cguResult = validateCgu();
+  console.log(firstResult, lastResult, emailResult, birthdateResult, quantityResult, "radio", locationResult, 'cgu', cguResult);
+
+  return firstResult && lastResult && emailResult && birthdateResult && quantityResult && locationResult && cguResult;
 }
+
 let form = document.querySelector('form');
 form.addEventListener("submit", function (e) {
   e.preventDefault();
-  validateForm()
-  if (validateForm()) {
+
+  isFormValid = validateForm()
+  if (isFormValid) {
     form.reset(),
-      closeModal(),
-      alert('Merci ! Votre réservation a été reçue.');
+    document.querySelector('.formSent').style.display="block"
+    document.querySelector('.formSent>span').style.display="block"
+    document.querySelector('form').style.display="none"
+    const formClosing = document.querySelector(".closing")
+    formClosing.addEventListener("click", closeModal)
   } else {
-    alert('form is not properly filled');
+   !locationResult 
+   ?document.getElementById('locationErrorMsg').innerHTML ="Vous devez selectionner une ville"
+   :document.getElementById('locationErrorMsg').innerHTML =""
+
+   !cguResult 
+   ?document.getElementById('cguErrorMsg').innerHTML ="Vous devez cocher les cgu"
+   :document.getElementById('cguErrorMsg').innerHTML =""
+
+   
+
+
+         
+     
+   
+    
+   
   }
 })

@@ -516,6 +516,24 @@ footer {
     text-align: center;
   }
 }
+.error{
+  color:red
+}
+.formSent{
+  display: none;
+
+  text-align: center;
+  font-size: 30px;
+}
+.formSent span{
+ 
+  margin: 80% auto;
+ 
+}
+.closing{
+ 
+
+}
 
 @keyframes modalopen {
   from {
@@ -526,4 +544,6 @@ footer {
     opacity: 1;
   }
 }
+
+
 
