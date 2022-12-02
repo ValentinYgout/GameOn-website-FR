@@ -21,6 +21,9 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 // launch modal form
 function launchModal() {
   modalbg.style.display = "block";
+  document.querySelector('.formSent').style.display = "none"
+  document.querySelector('.formSent>span').style.display = "none"
+  document.querySelector('form').style.display = "block"
 }
 //close modal
 formClose.addEventListener("click", closeModal)
@@ -30,7 +33,6 @@ formClose.addEventListener("click", closeModal)
 // close modal form
 function closeModal() {
   modalbg.style.display = "none";
-  
 }
 
 
@@ -62,14 +64,17 @@ let birthdateResult = false;
 let locationResult = false;
 let cguResult = false;
 
+// Au moins deux caractères
 nameRegex = /^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ._-\s]{2,50}$/;
-emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-// quantityRegex = /^[0-9]{1,2}$/;
-birthdateRegex = /^(19|20)\d{2}-\d{2}-\d{2}$/;
-//1900
 
-quantityRegex = /\b([0-9]|[1-9][0-9])\b/
+//Regex email simple
+emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+//1900+
+birthdateRegex = /^(19|20)\d{2}-\d{2}-\d{2}$/;
+
 //0-99
+quantityRegex = /\b([0-9]|[1-9][0-9])\b/
 
 
 let first = document.getElementById('first');
@@ -111,8 +116,7 @@ function validateCgu() {
 
 function validateForm() {
   locationResult = validateRadio();
-  cguResult = validateCgu();
-  console.log(firstResult, lastResult, emailResult, birthdateResult, quantityResult, "radio", locationResult, 'cgu', cguResult);
+  cguResult = validateCgu()
 
   return firstResult && lastResult && emailResult && birthdateResult && quantityResult && locationResult && cguResult;
 }
@@ -124,27 +128,28 @@ form.addEventListener("submit", function (e) {
   isFormValid = validateForm()
   if (isFormValid) {
     form.reset(),
-    document.querySelector('.formSent').style.display="block"
-    document.querySelector('.formSent>span').style.display="block"
-    document.querySelector('form').style.display="none"
+    document.querySelector('.formSent').style.display = "block"
+    document.querySelector('.formSent>span').style.display = "block"
+    document.querySelector('form').style.display = "none"
     const formClosing = document.querySelector(".closing")
     formClosing.addEventListener("click", closeModal)
   } else {
-   !locationResult 
-   ?document.getElementById('locationErrorMsg').innerHTML ="Vous devez selectionner une ville"
-   :document.getElementById('locationErrorMsg').innerHTML =""
+    !locationResult
+      ?
+      document.getElementById('locationErrorMsg').innerHTML = "Vous devez selectionner une ville" :
+      document.getElementById('locationErrorMsg').innerHTML = ""
 
-   !cguResult 
-   ?document.getElementById('cguErrorMsg').innerHTML ="Vous devez cocher les cgu"
-   :document.getElementById('cguErrorMsg').innerHTML =""
-
-   
+      !cguResult ?
+      document.getElementById('cguErrorMsg').innerHTML = "Vous devez cocher les cgu" :
+      document.getElementById('cguErrorMsg').innerHTML = ""
 
 
-         
-     
-   
-    
-   
+
+
+
+
+
+
+
   }
 })
