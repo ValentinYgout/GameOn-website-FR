@@ -70,7 +70,7 @@ nameRegex = /^[a-zA-Záàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ�
 //Regex email simple
 emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
-//1900+
+//format  AAAA-MM-DD  dont année 1900+
 birthdateRegex = /^(19|20)\d{2}-\d{2}-\d{2}$/;
 
 //0-99
@@ -133,6 +133,15 @@ form.addEventListener("submit", function (e) {
     document.querySelector('form').style.display = "none"
     const formClosing = document.querySelector(".closing")
     formClosing.addEventListener("click", closeModal)
+
+   firstResult = false;
+    lastResult = false;
+    emailResult = false;
+    quantityResult = false;
+    birthdateResult = false;
+    locationResult = false;
+    cguResult = false;
+
   } else {
     !locationResult
       ?
